@@ -1,0 +1,29 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}All programs
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex flex-column align-items-center">
+		<h1>Toutes les séries de la table program :
+		</h1>
+		<a href="/program/new">ADD</a>
+		{% for program in programs %}
+			<div>
+				<h2>{{ loop.index }}
+					/
+					{{ program.title }}
+				</h2>
+				- Catégorie :
+				{{ program.category.name }}</h2>
+			<p>{{ program.synopsis }}</p>
+			<a href="{{ path("program_show", { slug: program.slug }) }}">Voir la fiche</a>
+		</div>
+	{% else %}
+		Aucune série trouvée.
+	{% endfor %}
+
+	{{ app.session.get('total') }}
+
+	<a href="{{ path('app_index')}}">Retour à l'accueil</a>
+</div>{% endblock %}

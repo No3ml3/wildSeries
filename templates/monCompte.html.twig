@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wild Series
+{% endblock %}
+
+{% block navbar %}
+	{% include '/components/_navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+
+<h1>Bonjour {{ user.email}}</h1>
+
+<p>you are our {{ user.id}} client</p>
+
+<h2>byebye</h2>
+
+{% endblock %}

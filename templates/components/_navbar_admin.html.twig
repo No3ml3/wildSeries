@@ -1,0 +1,25 @@
+<header>
+	<nav class="navbar">
+		<div class="navbar-brand d-flex align-items-center p-0">
+			<a href="/"><img src="{{ asset('build/images/elephant.jpg') }}" alt="default"/></a>
+			<p class="ms-4 mb-0">Wild-series</p>
+		</div>
+		<ul class="d-flex align-items-end m-0 list-unstyled me-4">
+			<li class="nav-item">
+				<a class="nav-link me-4" href="{{ path('app_season_index') }}">Saisons</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link me-4" href="{{ path('app_episode_index') }}">Episodes</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link me-4" href="{{ path('program_index') }}">Programmes</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('actor_index') }}">Acteurs</a>
+			</li>
+		</ul>
+		<div class="connection me-4">
+			<button class="btn btn-outline-success" type="submit"> <a href="{{ path('app_index') }}">Deconnection</a></button>
+		</div>
+	</nav>
+</header>

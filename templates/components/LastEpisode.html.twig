@@ -1,0 +1,16 @@
+<div{{ attributes }}>
+   	<section class="row">
+		{% for episode in this.episode %}
+			<article class="card bg-secondary" style="width: 18rem;">
+				<div class="card-body">
+                <aside><h5 class="card-title">{{ episode.title }}</h5></aside>
+					<aside><h6>{{ episode.season.number }}</h6></aside>
+                    <aside><h6>{{ episode.season.program.title }}</h6></aside>
+                    <aside><p class="card-text">{{ episode.synopsis }}</p></aside>
+                    <aside><p>{{ episode.id }}</p></aside>
+					<a class="btn" href="{{path('program_episode_show',{'program':episode.season.program.id,'season':episode.season.id, 'episode':episode.id})}}">see more</a>
+				</div>
+			</article>
+		{% endfor %}
+	</section>
+</div>

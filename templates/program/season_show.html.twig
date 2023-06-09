@@ -1,0 +1,42 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}Season
+{% endblock %}
+
+{% block body %}
+	<main>
+		<h1>Season</h1>
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ season.id }}</td>
+				</tr>
+				<tr>
+					<th>Number</th>
+					<td>{{ season.number }}</td>
+				</tr>
+				<tr>
+					<th>Year</th>
+					<td>{{ season.year }}</td>
+				</tr>
+				<tr>
+					<th>Description</th>
+					<td>{{ season.description }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul>
+			{% for episode in season.episodes %}
+				<li>{{ episode.number ~ ' ' ~ episode.title ~ ' ' ~ episode.synopsis  }}</li>
+				<a href="{{path('program_episode_show',{'program':program.id,'season':season.id, 'episode':episode.id})}}">show Me</a>
+			{% else %}
+				Aucune episode trouvée.
+			{% endfor %}
+		</ul>
+
+		<a href="{{ path("program_show", { slug: program.slug }) }}">back to list</a>
+
+	</main>
+{% endblock %}

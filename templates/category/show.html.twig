@@ -1,0 +1,26 @@
+{% extends 'index.html.twig' %}
+
+{% block body %}
+	<main>
+		{% for category in categories %}
+			<div>
+				<h1>{{ category.name }}</h1>
+				{% for program in programs %}
+					{% if loop.index <= 3 %}
+						<article>
+							<h4>{{ program.title }}</h4>
+							<p>{{ program.synopsis }}</p>
+							<h6>{{ program.id }}</h6>
+							<a href="{{ path("program_show", { slug: program.slug }) }}">en voir plus</a>
+						</article>
+					{% endif %}
+				{% else %}
+					Aucune série trouvée.
+				{% endfor %}
+			</div>
+		{% endfor %}
+		<a href="{{ path('category_index') }}">
+			Retour à la liste des categories
+		</a>
+	</main>
+{% endblock %}

@@ -1,0 +1,17 @@
+
+header{
+  border-bottom: 1px solid black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+main{
+  margin-top: 6rem;
+}
+.navbar-brand img {
+  height: 50px;
+  width: 75px;
+  margin-left: 2rem;
+}
+
+@import "~bootstrap/scss/bootstrap";

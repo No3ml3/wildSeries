@@ -1,0 +1,32 @@
+<header>
+	<nav class="navbar bg-secondary">
+		<div class="navbar-brand d-flex align-items-center p-0">
+			<a href="/"><img src="{{ asset('build/images/elephant.jpg') }}" alt="default"/></a>
+			<p class="ms-4 mb-0">Wild-series</p>
+		</div>
+		<ul class="d-flex align-items-end m-0 list-unstyled me-4">
+			{{ component('NavbarComponent') }}
+			<li class="nav-item">
+				<a class="nav-link me-4" href="{{ path('program_index') }}">Programmes</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link me-4" href="{{ path('actor_index') }}">Actors</a>
+			</li>
+			{% if app.user %}
+				{{ app.user.email }}
+				<a href="{{ path('app_logout') }}">
+					Se déconnecter</a>
+				<a href="{{ path('Mon_compte') }}">
+					Mon compte</a>
+			{% else %}
+				<a href="{{ path('app_login') }}">
+					Se connecter</a>
+			{% endif %}
+		</ul>
+		<div class="connection me-4">
+			<button href="{{ path('admin_index') }}" class="btn btn-outline-success" type="submit">
+				<a href="{{ path('admin_index') }}">Connection</a>
+			</button>
+		</div>
+	</nav>
+</header>

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wild Series
+{% endblock %}
+
+{% block navbar %}
+	{% include '/components/_navbar_admin.html.twig' %}
+{% endblock %}
+
+{% block body %}
+	<main>
+		<h1>Bienvenue !</h1>
+		<a href="{{ path('app_season_index') }}">
+			La liste des saisons
+		</a>
+		<br>
+		<a href="{{ path('app_episode_index') }}">
+			La liste des episodes
+		</a>
+		<a href="{{ path('program_index') }}">
+			La liste des programes
+		</a>
+	</main>
+{% endblock %}

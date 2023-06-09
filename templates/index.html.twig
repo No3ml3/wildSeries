@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wild Series
+{% endblock %}
+
+{% block navbar %}
+	{% include '/components/_navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+	<div class="p-5" style="font-size: 1.3em;">
+		<span {{ stimulus_controller('symfony/ux-typed', { strings: [ 'Bienvenue sur Wild Series', 'Le meilleur site pour suivre tes séries préférées', 'Découvre les dernières actus sur les séries du moment', ], loop: true, showCursor: true, cursorChar: '✨', } ) }}></span>
+	</div>
+
+	<div class="d-flex flex-column align-items-center">
+		<h1>Bienvenue !</h1>
+		<a href="{{ path('program_index') }}">
+			La liste des programmes
+		</a>
+		<br>
+		<a href="{{ path('category_index') }}">
+			La liste des category
+		</a>
+		<br>
+		<a href="{{ path('actor_index') }}">
+			La liste des acteurs
+		</a>
+	</div>
+{% endblock %}
