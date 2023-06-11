@@ -5,8 +5,12 @@
 
 {% block body %}
 	<div class="d-flex flex-column align-items-center">
-		<h1>Toutes les séries de la table program :
-		</h1>
+		<h1>Toutes les séries</h1>
+
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button>Search</button>
+		{{ form_end(form) }}
 		<a href="/program/new">ADD</a>
 		{% for program in programs %}
 			<div>

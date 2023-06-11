@@ -15,6 +15,7 @@ use App\Entity\Season;
 use App\Entity\Episode;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramType;
+use App\Form\SearchProgramType;
 use App\Repository\CommentsRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -30,11 +31,19 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ProgramController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(ProgramRepository $programRepository, RequestStack $requestStack,): Response
+    public function index(Request $request, ProgramRepository $programRepository): Response
     {
-        $programs = $programRepository->findAll();
+        $form = $this->createForm(SearchProgramType::class);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $programs = $programRepository->findLikeName($search);
+        } else {
+            $programs = $programRepository->findAll();
+        }
 
-        $session = $requestStack->getSession();
+        $session = $request->getSession();
 
         if (!$session->has('total')) {
             $session->set('total', 0); // if total doesn’t exist in session, it is initialized.
@@ -44,6 +53,7 @@ class ProgramController extends AbstractController
 
         return $this->render('program/index.html.twig', [
             'programs' => $programs,
+            'form' => $form,
         ]);
     }
 
