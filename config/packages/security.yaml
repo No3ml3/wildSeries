@@ -42,9 +42,9 @@ security:
         ROLE_ADMIN: ROLE_CONTRIBUTOR
     access_control:
         - { path: ^/program/new, roles: ROLE_CONTRIBUTOR }
-        - { path: ^/program/[0-9a-zA-Z]/edit, roles: ROLE_CONTRIBUTOR }
-        - { path: ^/show/[a-zA-Z_0-9-]+/season/[a-zA-Z_0-9-]+/episode/[a-zA-Z_0-9-]+/comment, roles: ROLE_CONTRIBUTOR }
-        - { path: ^/comments/[a-zA-Z_0-9-]+, roles: ROLE_CONTRIBUTOR}
+        - { path: ^/program/(0-9a-zA-Z)/edit, roles: ROLE_CONTRIBUTOR }
+        - { path: ^/show/(a-zA-Z_0-9-)+/season/(a-zA-Z_0-9-)+/episode/(a-zA-Z_0-9-)+/comment, roles: ROLE_CONTRIBUTOR }
+        - { path: ^/comments/(a-zA-Z_0-9-)+, roles: ROLE_CONTRIBUTOR}
 
 when@test:
     security:

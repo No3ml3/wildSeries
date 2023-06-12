@@ -12,6 +12,7 @@ use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Entity\User;
 use App\Entity\Episode;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramType;
@@ -24,6 +25,7 @@ use App\Service\ProgramDuration;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email as MimeEmail;
 use App\Form\CommentsType;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -35,7 +37,7 @@ class ProgramController extends AbstractController
     {
         $form = $this->createForm(SearchProgramType::class);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
             $search = $form->getData()['search'];
             $programs = $programRepository->findLikeName($search);
@@ -66,7 +68,7 @@ class ProgramController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $slug = $slugger->slug($program->getTitle());
             $program->setSlug($slug);
 
@@ -91,6 +93,38 @@ class ProgramController extends AbstractController
             'program' => $program,
         ]);
     }
+
+    #[Route('/{id}/watchlist', methods: ['GET', 'POST'], name: 'watchlist')]
+    public function addToWatchlist(Program $program, UserRepository $userRepository): Response
+    {
+        if (!$program) {
+            throw $this->createNotFoundException(
+                'No program with this id found in program\'s table.'
+            );
+        }
+
+        if (!$this->getUser()) {
+            throw $this->createNotFoundException(
+                'Your are not connected'
+            );
+        }
+
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+        if ($user->isInWatchlist($program)) {
+            $user->removeFromWatchlist($program);
+        } else {
+            $user->addToWatchlist($program);
+        }
+
+        $userRepository->save($user, true);
+
+        return $this->json([
+            'isInWatchlist' => $user->isInWatchlist($program)
+        ]);
+    }
+
+    
     #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Program $program, ProgramRepository $programRepository, SluggerInterface $slugger): Response
@@ -165,4 +199,5 @@ class ProgramController extends AbstractController
             'form' => $form,
         ]);
     }
+
 }
